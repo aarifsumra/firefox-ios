@@ -451,7 +451,7 @@ class BrowserViewController: UIViewController {
         
         urlBar.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalTo(urlBarTopTabsContainer)
-            make.height.equalTo(UIConstants.ToolbarHeight)
+            make.height.equalTo(UIConstants.TopToolbarHeight)
             make.top.equalTo(topTabsContainer.snp.bottom)
         }
 
@@ -1743,7 +1743,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
         // ensure that any keyboards or spinners are dismissed before presenting the menu
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
 
-        if FeatureSwitches.photonMenu.isMember(profile.prefs) {
+        if FeatureSwitches.photonMenu.isMember(profile.prefs) || true {
             var actions: [[PhotonActionSheetItem]] = []
 
             let homePanelActions = self.getHomePanelActions(openURL: { (url) in
@@ -1812,7 +1812,7 @@ extension BrowserViewController: TabToolbarDelegate, PhotonActionSheetProtocol {
     }
 
     func tabToolbarDidPressShare(_ tabToolbar: TabToolbarProtocol, button: UIButton) {
-        if FeatureSwitches.photonMenu.isMember(profile.prefs) {
+        if FeatureSwitches.photonMenu.isMember(profile.prefs) || true {
 
 
             let actionMenuPresenter: (URL, Tab, UIView, UIPopoverArrowDirection) -> Void  = { (url, tab, view, direction) in
