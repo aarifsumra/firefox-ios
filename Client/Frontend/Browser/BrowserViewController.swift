@@ -3013,6 +3013,14 @@ extension BrowserViewController: IntroViewControllerDelegate {
     
     func introViewControllerDidRequestToEnableNotifications(_ introViewController: IntroViewController) {
         // TODO Calling into the FxaLoginHelper shows the permissions dialog but then crashes
+        FxALoginHelper.sharedInstance.getDeviceToken(UIApplication.shared).upon { res in
+            if let token = res.successValue {
+                log.info("Device token is \(token)")
+            } else {
+                log.error("Device not registered: \(res.failureValue?.description ?? "unknown error")")
+            }
+            introViewController.SELforward()
+        }
     }
 
     func presentSignInViewController(_ fxaOptions: FxALaunchParams? = nil) {
